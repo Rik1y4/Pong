@@ -11,18 +11,18 @@ class pong:
     rb = t.Turtle()
     rb.shape(name="square")
     rb.resizemode("user")
-    rb.color("blue")
-    rb.shapesize(stretch_wid=4, stretch_len=2)
+    rb.color("black")
+    rb.shapesize(stretch_wid=5, stretch_len=1)
     rb.penup()
-    rb.goto(400, 0)
+    rb.goto(480, 0)
 
     lb = t.Turtle()
     lb.shape(name="square")
     lb.resizemode("user")
-    lb.color("red")
-    lb.shapesize(stretch_wid=4, stretch_len=2)
+    lb.color("black")
+    lb.shapesize(stretch_wid=5, stretch_len=1)
     lb.penup()
-    lb.goto(-400, 0)
+    lb.goto(-480, 0)
 
     ball = t.Turtle()
     ball.shape(name="circle")
@@ -30,6 +30,16 @@ class pong:
     ball.penup()
     ball.dx = 2
     ball.dy = 2
+
+    score1 = 0
+    score2 = 0
+
+    pen = t.Turtle()
+    pen.color("white")
+    pen.penup()
+    pen.hideturtle()
+    pen.goto(0, 350)
+    pen.write("Player1:"+str(score1)+"  Player2:"+str(score2), align= "center", font=("Courier", 24, "normal"))
 
     def resetball():
         pong.ball.setposition(0,0)
@@ -84,11 +94,26 @@ class pong:
             if self.ball.xcor() > 490:
                 self.ball.setx(490)
                 self.ball.dx*=-1
+                self.score1+=1
+                self.pen.clear()
+                self.pen.write("Player1:"+str(self.score1)+"  Player2:"+str(self.score2), align= "center", font=("Courier", 24, "normal"))
+                
 
             if self.ball.xcor() < -490:
                 self.ball.setx(-490)
                 self.ball.dx*=-1
+                self.score2+=1
+                self.pen.clear()
+                self.pen.write("Player1:"+str(self.score1)+"  Player2:"+str(self.score2), align= "center", font=("Courier", 24, "normal"))
 
+
+
+            if self.ball.xcor()> 460 and self.ball.xcor()< 490 and (self.ball.ycor() < self.rb.ycor()+50 and self.ball.ycor()> self.rb.ycor()-50):
+                self.ball.dx*=-1
+            
+
+            if self.ball.xcor()< -460 and self.ball.xcor()> -490 and (self.ball.ycor()< self.lb.ycor()+ 50 and self.ball.ycor()> self.lb.ycor()-50):
+                self.ball.dx*=-1
     
 
         
